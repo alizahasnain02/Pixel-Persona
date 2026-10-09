@@ -1,2 +1,29 @@
 # Pixel-Persona
-UNSEEN — An interactive, human-centered experience exploring student life pressures through immersive visuals, meaningful interactions, and small, actionable steps toward emotional well-being. Built with HTML, CSS, and JavaScript.
+# The Weight We Carry
+
+**The Weight We Carry** is an interactive web experience exploring student life pressures, including academic stress, family expectations, social comparison, and career anxiety.
+
+### ✨ Features
+- Interactive pressure selection
+- Visual backpack representing emotional weight
+- Personalized action plans
+- Drag-and-drop “Put One Thing Down” interaction
+- Mindful breathing and personal reflection
+- Responsive design and animations
+
+### 🛠️ Tech Stack
+- HTML5
+- CSS3
+- JavaScript
+
+### 👥 Team
+**Team Name:** gannumeh14
+
+**Team Members:**
+- Aliza Hasnain — Babu Banarasi Das University student
+- Rohan Mehrotra — Babu Banarasi Das University student
+
+### 🎯 Goal
+Encourage students to acknowledge their struggles and take one small, meaningful step forward.
+
+> “You haven't solved everything. You've chosen one thing you can do next.”
