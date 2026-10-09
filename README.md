@@ -17,7 +17,7 @@
 - HTML5
 
 ### 👥 Team
-**Team Name:** gannumeh14
+**Team Name:** gannumehrotra14
 
 **Team Members:**
 - Aliza Hasnain — Babu Banarasi Das University student
