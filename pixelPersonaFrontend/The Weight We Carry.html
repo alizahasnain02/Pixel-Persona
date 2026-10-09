@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Weight We Carry </title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Mono&family=Caveat:wght@500;700&display=swap">
+<style>
+:root{--bg:#0b1022;--ink:#ece3cf;--accent:#a99bd6;--pack:rgba(236,227,207,.05);--grain:.24;--p:0;
+--serif:'Instrument Serif',Georgia,serif;--hand:'Caveat','Comic Sans MS',cursive;--mono:'Space Mono',monospace;
+padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);box-sizing:border-box}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:1.2rem/1.5 var(--serif);transition:background-color 1.4s,color 1.4s;overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;opacity:var(--grain);
+background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+:focus-visible{outline:2px dashed var(--accent);outline-offset:4px}
+
+/* the backpack, pinned */
+.stage{position:fixed;top:0;left:0;width:46vw;height:100vh;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+transform:translateX(var(--tx,54vw));transition:transform 1.2s cubic-bezier(.6,0,.2,1)}
+.stage[data-side=l]{--tx:0vw}
+.pack{width:100%;display:flex;justify-content:center}
+.pack svg{height:68vh;max-width:100%;overflow:visible;transform:rotate(var(--tilt,0deg));transform-origin:50% 100%;transition:transform .6s}
+.o.drag{cursor:grabbing;transition:opacity .6s}.o.back{transition:opacity .6s,transform 1s,translate .8s cubic-bezier(.3,1.8,.5,1)}
+.cap{font:1.5rem/1.15 var(--hand);min-height:3.4rem;max-width:20rem;text-align:center;margin:.6rem 1rem 0;color:var(--accent)}
+.meter{font:.78rem/1.5 var(--mono);opacity:.7;text-align:center;margin:0}
+.ln{fill:none;stroke:var(--ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.fillp{fill:var(--pack)}.dash{stroke-dasharray:3 7;opacity:.45}
+.hand{font:700 19px var(--hand);fill:var(--ink)}
+.o{visibility:hidden;opacity:0;cursor:grab;touch-action:none;transform-box:fill-box;transform-origin:50% 50%;transition:opacity .6s,transform 1s}
+.o:focus-visible{outline:2px dashed var(--accent)}
+.bodyg{transform-origin:160px 374px;transition:transform 1s}
+.s1 .bodyg{transform:scale(1.01,.99)}.s2 .bodyg{transform:scale(1.02,.975)}.s3 .bodyg{transform:scale(1.03,.96)}.s4 .bodyg{transform:scale(1.045,.945)}
+.fin .bodyg{transform:none}
+.t0 .bodyg{animation:thud .5s .55s}.t1 .bodyg{animation:thud2 .5s .55s}
+@keyframes thud{40%{transform:translateY(7px) scale(1.06,.93)}}
+@keyframes thud2{40%{transform:translateY(7px) scale(1.06,.93)}}
+/* book: drops like it weighs something */
+.book{transform:translateY(-190px) rotate(-14deg)}
+.s1 .book{visibility:visible;opacity:1;transform:rotate(-3deg);transition-timing-function:cubic-bezier(.55,0,.9,.45)}
+/* clock: ticks too fast */
+.clock{transform:translateX(-150px) rotate(-70deg)}
+.s2 .clock{visibility:visible;opacity:1;transform:rotate(4deg)}
+.sec-h{transform-origin:140px 225px;animation:tick 12s steps(60) infinite}
+.min-h{transform-origin:140px 225px;animation:tick 150s linear infinite}
+.fx-clock .sec-h{animation-duration:1.2s}.fx-clock .min-h{animation-duration:8s}
+@keyframes tick{to{transform:rotate(360deg)}}
+/* mirror: cracks draw themselves */
+.mirror{transform:translateY(70px) rotate(22deg)}
+.s3 .mirror{visibility:visible;opacity:1;transform:rotate(10deg)}
+.mf{fill:#9aa6c4;fill-opacity:.28;stroke:var(--ink);stroke-width:4}.sil{fill:var(--ink);opacity:.3}
+.crack{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.5s ease-out}
+.s3 .c1{stroke-dashoffset:0;transition-delay:.7s}.s3 .c2{stroke-dashoffset:0;transition-delay:1.6s}
+.cr2 .c3,.cr3 .c3,.cr3 .c4{stroke-dashoffset:0}.cr1 .c3,.cr1 .c4,.cr2 .c4{stroke-dashoffset:1}
+/* coin: lands, never settles on a side */
+.coin{transform:translateY(-280px)}
+.s4 .coin{visibility:visible;opacity:1;transform:none;transition-timing-function:cubic-bezier(.4,0,.8,.5)}
+.flip{transform-box:fill-box;transform-origin:50% 50%}
+.s4 .flip{animation:flip 3.4s 1.2s ease-in-out infinite}.fx-coin .flip{animation-duration:.8s}
+@keyframes flip{25%{transform:scaleX(.05)}50%{transform:scaleX(-1)}75%{transform:scaleX(-.05)}}
+.bk{fill:#4d3f7a;stroke:var(--ink);stroke-width:2}.cf{fill:#ece3cf;stroke:var(--ink);stroke-width:2.5}
+.cn{fill:#cdb985;stroke:var(--ink);stroke-width:2}.rs{font:700 20px var(--mono);fill:#2b2850}
+.clock .ln{stroke:var(--ink)}.clock .cf~.ln,.clock .cf~line{stroke:#161a3a}
+/* finale: the pack gets lighter, the chosen thing comes out */
+.fin .o{opacity:.55}
+.fin.pick-book .book,.fin.pick-clock .clock,.fin.pick-mirror .mirror,.fin.pick-coin .coin{opacity:1;transform:translateY(-105px) rotate(0)!important}
+.fin.pick-book .book{transform:translateY(-130px) rotate(-6deg)!important}
+
+/* inside the bag */
+.tag{font:700 15px var(--hand);fill:var(--accent);opacity:0;transition:opacity .3s;pointer-events:none}.o:hover .tag,.o:focus .tag{opacity:1}
+.fx-clock .bell{animation:jit .09s infinite}@keyframes jit{50%{transform:translate(1.5px,-1px)}}
+.t1,.t2{transition:opacity .5s}.t2{opacity:0}.open-book .t1{opacity:0}.open-book .t2{opacity:1}
+.oth{opacity:0;transition:opacity .4s;fill:var(--accent);font:700 17px var(--hand)}
+.mirror:hover .oth,.mirror:focus .oth{opacity:1}.mirror:hover .sil,.mirror:focus .sil{opacity:.05}
+.sec{pointer-events:none}.sec>*{pointer-events:auto}
+.o{-webkit-user-select:none;user-select:none}
+/* site nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;gap:1.7rem;padding:calc(.8rem + env(safe-area-inset-top,0px)) 3vw .8rem;background:var(--bg);border-bottom:1px dashed var(--accent);transition:background-color 1.4s}
+.nav button{all:unset;cursor:pointer;font:1.05rem var(--serif);opacity:.6;border-bottom:2px solid transparent;padding:.1rem 0}
+.nav button[aria-current=true]{opacity:1;border-color:var(--accent)}
+.nav button:hover{opacity:1}.nav button:focus-visible{outline:2px dashed var(--accent);outline-offset:4px}
+.nav .mark{font:italic 1.4rem var(--serif);margin-right:auto;opacity:1}
+.bar{position:absolute;left:0;bottom:-1px;height:2px;background:var(--accent);width:calc(var(--p)*100%)}
+/* the words */
+.sec{position:relative;z-index:2;min-height:112vh;padding:16vh 6vw 14vh}
+.txt{width:min(38rem,44vw)}
+.s-l .txt{margin-right:auto}.s-r .txt{margin-left:auto}
+h1,h2{font-weight:400;margin:0;line-height:.88;letter-spacing:calc(-.055em + var(--p)*.05em)}
+h1{font-size:clamp(3.4rem,10.5vw,9.5rem);position:relative;z-index:3}
+h1 .b{display:block;font-style:italic;margin-left:9vw;transform:rotate(-2deg);transform-origin:left;text-decoration:underline wavy var(--accent) 3px;text-underline-offset:.12em}
+h2{font-size:clamp(2.8rem,6.5vw,6rem);margin:0 0 1.8rem}
+.intro .lede{max-width:24rem;margin:3rem 0 0 2vw;font-size:1.3rem}
+.scroll{font:1.6rem var(--hand);color:var(--accent);margin:2rem 0 0 2vw}
+blockquote{margin:0 0 1.6rem;padding-left:1.1rem;border-left:2px solid var(--accent);font-size:1.55rem;line-height:1.3;font-style:italic;transform:rotate(-.5deg)}
+.what{margin:0 0 2rem;max-width:30rem}
+.ways{list-style:none;padding:0;margin:0;font:1.55rem/1.15 var(--hand)}
+.ways li{padding:.45rem 0 .45rem 1.6rem;position:relative;max-width:30rem}
+.ways li::before{content:"–";position:absolute;left:0;color:var(--accent)}
+.ways li:nth-child(2){margin-left:1.4rem;transform:rotate(.6deg)}.ways li:nth-child(3){margin-left:.4rem;transform:rotate(-.5deg)}
+.p0{padding-top:20vh}.p0 h2{margin-bottom:1rem}.p0 .what{font-size:1.1rem;line-height:1.35}
+.p1 .txt{text-align:right}.p1 blockquote{border-left:0;border-right:2px solid var(--accent);padding:0 1.1rem 0 0;transform:rotate(.7deg)}
+.p1 .ways li{margin-left:auto;padding:.45rem 1.6rem .45rem 0}.p1 .ways li::before{left:auto;right:0}
+.p2{padding-top:22vh}.p2 h2{margin-left:-1.5vw;font-size:clamp(2.6rem,6vw,5.4rem)}.p2 .ways li{max-width:24rem}
+.p3 .ways{border-top:1px dashed var(--accent);padding-top:1rem;margin-top:2.5rem}.p3 h2{letter-spacing:calc(-.05em + var(--p)*.07em)}
+.fin-sec{padding-bottom:10vh;min-height:130vh}
+.fin-sec h2{font-size:clamp(3rem,7vw,6.5rem)}
+fieldset{border:0;margin:0 0 2rem;padding:0}
+legend{font:1.5rem var(--hand);color:var(--accent);padding:0;margin-bottom:.4rem}
+fieldset label{display:block;font-size:1.5rem;line-height:1.25;padding:.35rem 0;cursor:pointer;position:relative;padding-left:1.5rem}
+fieldset input{position:absolute;opacity:0}
+fieldset label::before{content:"○";position:absolute;left:0;color:var(--accent)}
+fieldset label.on{font-style:italic;text-decoration:underline wavy var(--accent) 1.5px;text-underline-offset:.2em}fieldset label.on::before{content:"●"}
+fieldset label:focus-within{outline:2px dashed var(--accent);outline-offset:3px}
+.pledge{font:700 1.9rem/1.15 var(--hand);color:var(--accent);margin:0 0 2.5rem;max-width:30rem;transform:rotate(-.8deg)}
+.close{max-width:30rem;font-size:1.5rem;line-height:1.3}
+.close small{display:block;margin-top:2rem;font:.82rem/1.5 var(--mono);opacity:.75}
+
+@media(max-width:820px){
+body{font-size:1.1rem}
+.stage{width:100%;height:42vh;transform:none!important;background:var(--bg);z-index:5;border-bottom:1px dashed var(--accent);justify-content:flex-start;padding-top:calc(.6rem + env(safe-area-inset-top,0px));transition:background-color 1.4s}
+.pack svg{height:27vh}
+.cap{font-size:1.2rem;min-height:2.4rem;margin-top:.2rem}.meter{font-size:.68rem}
+.sec{padding:calc(42vh + 2.5rem) 1.3rem 5rem;min-height:100vh}
+.txt{width:100%}.p1 .txt{text-align:left}
+.p1 blockquote{border-right:0;border-left:2px solid var(--accent);padding:0 0 0 1.1rem}
+.p1 .ways li{margin-left:0;padding:.45rem 0 .45rem 1.6rem}.p1 .ways li::before{left:0;right:auto}
+h1{font-size:clamp(3rem,17vw,5rem)}h1 .b{margin-left:5vw}
+}
+@media(max-width:820px){
+.nav{top:auto;bottom:0;gap:.9rem;justify-content:space-between;padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom,0px));border-bottom:0;border-top:1px dashed var(--accent);overflow-x:auto}
+.nav button{font-size:.82rem;white-space:nowrap}.nav .mark{display:none}.bar{bottom:auto;top:-1px}
+.sec{padding-bottom:7rem}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script>
+const {useState,useEffect,useRef}=React, h=React.createElement;
+
+/* ---- CONTENT: edit freely ---- */
+const P=[
+{id:'book',title:'Expectations',side:'l',
+ note:'Inside: every report card since class six. Mum keeps them in a steel trunk.',
+ quote:'Papa asked “kitne aaye?” before he asked if I’d eaten. He wasn’t being cruel, which is why I never know how to answer.',
+ what:'Expectations are love with a score attached. Your family gave things up, so every result starts to feel like a verdict on them too. Disappointing them can scare you more than failing.',
+ ways:['Say your real number out loud before results day: “I’m hoping for 70, not 90.”','Write what you want next to what they want. Seeing both is a start.','Find someone who disagreed with their parents and stayed close. Ask how.']},
+{id:'clock',title:'The Future',side:'r',
+ note:'It doesn’t tell the time. It tells you how much you think you have left.',
+ quote:'Someone in my hostel got placed in October. I clapped, then counted how many weeks I had left.',
+ what:'“What after this?” is the question that never stops. It feels like an exam with no syllabus. The anxiety grows because the question is far too big to act on.',
+ ways:['Shrink it. Not “my career”, just one thing to try this month: a workshop, a call, a small project.','Keep a done list next to the to-do list.','Ask a senior two years ahead. Their path was messier than their LinkedIn.']},
+{id:'mirror',title:'Comparison',side:'l',
+ note:'Click again. The longer I look, the more it cracks.',
+ quote:'I know the trip photos are edited. I know. I still open the app at 1 a.m. and close it feeling behind.',
+ what:'You’re putting your whole unedited Tuesday next to strangers’ best minute. It’s a contest nobody entered, and you lose it every time.',
+ ways:['Mute, don’t unfollow, the three accounts that make you feel small.','Ask a friend how their week actually went. Then compare.','Make one thing nobody will see or rate.']},
+{id:'coin',title:'The Cost',side:'r',
+ note:'Same exam. Some bought the prep, some found the PDF at 2 a.m.',
+ quote:'I said I had a lab clash so I wouldn’t have to say I couldn’t afford the trip.',
+ what:'Money decides who gets the coaching, the laptop, the unpaid internship. Staying quiet makes it feel like your failure, when really it’s an uneven starting line.',
+ ways:['Ask about fee waivers, scholarships and instalments before the deadline, not after.','Use the free route first: library, open courses, seniors’ old notes.','Tell one friend. Someone nearby is probably splitting the same costs.']}
+];
+const SIDES=['r','r','l','r','l','r'];
+
+/* ---- THE BACKPACK (drawn as an x-ray, so you can see inside) ---- */
+const PACK=`<svg viewBox="0 0 320 400" role="group" aria-label="A backpack drawn as an x-ray. Objects appear inside as you scroll. Drag them, or tab to them and press Enter.">
+<g class="bodyg">
+<path class="ln" d="M126 66C124 30 196 28 194 66"/>
+<path class="ln" d="M66 120C30 150 28 250 54 330M254 120C290 150 292 250 266 330"/>
+<path class="ln fillp" d="M72 96C70 72 104 62 160 62C218 62 252 72 250 96L264 338C266 364 238 374 160 374C82 374 54 364 56 338Z"/>
+<path class="ln dash" d="M96 110L224 106L228 330L94 332Z"/>
+<path class="ln" d="M92 100C140 94 190 98 232 96M204 98l3 14"/>
+<path class="ln" d="M90 338C120 348 200 348 232 338L238 368C200 374 120 374 84 368ZM134 354H188"/>
+</g>
+<g class="o book" data-o="book" tabindex="0" role="button" aria-label="Heavy book: expectations">
+<rect class="bk" x="100" y="272" width="120" height="52" rx="3"/><path class="ln" d="M112 272V324M130 288h58M130 298h34"/>
+<text class="hand t1" x="168" y="316">90%+ ?</text><text class="hand t2" x="162" y="316" text-anchor="middle">got 74…</text></g>
+<g class="o clock" data-o="clock" tabindex="0" role="button" aria-label="Ticking clock: the future">
+<circle class="cf bell" cx="118" cy="188" r="9"/><circle class="cf bell" cx="162" cy="188" r="9"/><path class="ln" d="M120 260l-6 10M160 260l6 10"/>
+<circle class="cf" cx="140" cy="225" r="36"/><path class="ln" d="M140 194v6M140 250v6M109 225h6M165 225h6" style="stroke:#161a3a"/>
+<line class="min-h" x1="140" y1="225" x2="140" y2="202" stroke="#161a3a" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="140" y1="225" x2="129" y2="217" stroke="#161a3a" stroke-width="3.5" stroke-linecap="round"/>
+<line class="sec-h" x1="140" y1="225" x2="140" y2="196" stroke="#7a5fc4" stroke-width="1.8"/><text class="tag" x="140" y="172" text-anchor="middle">3 weeks left</text></g>
+<g class="o mirror" data-o="mirror" tabindex="0" role="button" aria-label="Cracked mirror: comparison">
+<ellipse class="mf" cx="198" cy="166" rx="30" ry="42"/><circle class="sil" cx="198" cy="158" r="9"/><path class="sil" d="M180 196c3-20 33-20 37 0z"/><path class="oth" d="M198 150l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/><text class="oth" x="198" y="184" text-anchor="middle">2.4k ♥</text>
+<path class="crack c1" pathLength="1" d="M203 125L194 148L206 162L192 180L198 207"/><path class="crack c2" pathLength="1" d="M194 148L172 156"/>
+<path class="crack c3" pathLength="1" d="M206 162L226 170"/><path class="crack c4" pathLength="1" d="M192 180L174 190"/></g>
+<g class="o coin" data-o="coin" tabindex="0" role="button" aria-label="Coin: the cost">
+<g class="flip"><circle class="cn" cx="208" cy="254" r="18"/><circle class="ln" cx="208" cy="254" r="13" style="stroke:#8a7440;stroke-width:1.2"/><text class="rs" x="208" y="261" text-anchor="middle">₹</text></g><text class="tag" x="208" y="226" text-anchor="middle">fees: 15th</text></g>
+</svg>`;
+
+const mix=(a,b,t)=>{const f=c=>[1,3,5].map(i=>parseInt(c.slice(i,i+2),16));const x=f(a),y=f(b);
+ return'rgb('+x.map((v,i)=>Math.round(v+(y[i]-v)*t)).join()+')'};
+
+function App(){
+ const [sec,setSec]=useState(0),[note,setNote]=useState(''),[fx,setFx]=useState(''),[cr,setCr]=useState(1);
+ const [pick,setPick]=useState(''),[act,setAct]=useState(-1),tm=useRef(),drag=useRef(null),[bo,setBo]=useState(false);
+ const n=Math.min(sec,4), fin=sec===5, q=P.find(x=>x.id===pick);
+
+ useEffect(()=>{
+  const root=document.documentElement; let raf=0;
+  const run=()=>{raf=0;
+   const mid=innerHeight*.55; let s=0;
+   document.querySelectorAll('[data-sec]').forEach((el,i)=>{if(el.getBoundingClientRect().top<mid)s=i});
+   const p=Math.min(1,scrollY/Math.max(1,document.body.scrollHeight-innerHeight)), c=s===5;
+   const set=(k,v)=>root.style.setProperty(k,v);
+   set('--p',Math.min(1,p*1.2));
+   set('--bg',c?'#ece3cf':mix('#0b1022','#2b2850',Math.min(1,p*1.25)));
+   set('--ink',c?'#161a3a':'#ece3cf'); set('--accent',c?'#5b4b8a':'#a99bd6');
+   set('--pack',c?'rgba(22,26,58,.05)':'rgba(236,227,207,.05)'); set('--grain',c?.12:.26-p*.08);
+   setSec(s)};
+  const on=()=>{if(!raf)raf=requestAnimationFrame(run)};
+  addEventListener('scroll',on,{passive:true});addEventListener('resize',on);run();
+  return()=>{removeEventListener('scroll',on);removeEventListener('resize',on)}
+ },[]);
+
+ useEffect(()=>{if(fin)setNote('')},[fin]);
+ const hit=e=>{const o=e.target.closest&&e.target.closest('[data-o]');return o&&o.dataset.o};
+ const poke=id=>{setNote(id);if(id==='book')setBo(v=>!v);setFx(id);clearTimeout(tm.current);tm.current=setTimeout(()=>setFx(''),2200);
+  if(id==='mirror')setCr(c=>Math.min(3,c+1))};
+ const W={book:.45,clock:.8,mirror:.9,coin:1.15}; /* heavier things resist the drag */
+ const down=e=>{const g=e.target.closest&&e.target.closest('[data-o]');if(!g)return;
+  const k=320/g.ownerSVGElement.getBoundingClientRect().width;
+  drag.current={g,id:g.dataset.o,x:e.clientX,y:e.clientY,k,f:W[g.dataset.o],d:0};
+  g.classList.remove('back');g.classList.add('drag');g.setPointerCapture(e.pointerId);setNote(g.dataset.o)};
+ const move=e=>{const d=drag.current;if(!d)return;const dx=(e.clientX-d.x)*d.k*d.f,dy=(e.clientY-d.y)*d.k*d.f;
+  d.d=Math.hypot(dx,dy);d.g.style.translate=dx+'px '+dy+'px'};
+ const up=()=>{const d=drag.current;if(!d)return;drag.current=null;
+  d.g.classList.remove('drag');d.g.classList.add('back');d.g.style.translate='0px 0px';
+  if(d.d<4)poke(d.id);else if(d.d>70)setNote('back')};
+ const go=i=>{const el=document.querySelectorAll('[data-sec]')[i];
+  el&&el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'})};
+ const nav=h('nav',{className:'nav','aria-label':'Sections'},
+  h('button',{className:'mark',onClick:()=>go(0)},'The weight we carry'),
+  ['Expectations','The Future','Comparison','The Cost','Put it down'].map((l,i)=>
+   h('button',{key:l,'aria-current':sec===i+1?'true':undefined,onClick:()=>go(i+1)},l)),
+  h('span',{className:'bar','aria-hidden':'true'}));
+ const cap=note==='book'&&bo?'Same page, two numbers: the one they hoped for, the one I got.':note==='back'?'I put it down. It came back. Some things only move when someone else lifts too.':note?P.find(x=>x.id===note).note:(fin?'Still all in there. Just not only mine to carry.':n?'Drag an object out. Notice which ones fight you.':'Empty, for now. It looks light from the outside.');
+ const cls=['pack'].concat([1,2,3,4].filter(i=>i<=n).map(i=>'s'+i),'t'+(n%2),'cr'+cr,fin?'fin':'',pick&&fin?'pick-'+pick:'',fx?'fx-'+fx:'',bo?'open-book':'').join(' ');
+
+ return h(React.Fragment,null,
+  nav,
+  h('div',{className:'stage','data-side':SIDES[sec],
+   onMouseMove:e=>{const r=e.currentTarget.getBoundingClientRect();e.currentTarget.style.setProperty('--tilt',((e.clientX-r.left)/r.width-.5)*7+'deg')},
+   onMouseLeave:e=>e.currentTarget.style.setProperty('--tilt','0deg')},
+   h('div',{className:cls,
+    onMouseOver:e=>{const i=hit(e);if(i)setNote(i)},onFocus:e=>{const i=hit(e);if(i)setNote(i)},
+    onPointerDown:down,onPointerMove:move,onPointerUp:up,onPointerCancel:up,
+    onKeyDown:e=>{if(e.key==='Enter'||e.key===' '){const i=hit(e);if(i){e.preventDefault();poke(i)}}},
+    dangerouslySetInnerHTML:{__html:PACK}}),
+   h('p',{className:'cap','aria-live':'polite'},cap),
+   h('p',{className:'meter'},fin?'felt weight: shared':'felt weight: '+(n*2.6).toFixed(1)+' kg',h('br'),'on a scale: 0 g')),
+
+  h('header',{className:'sec s-l intro','data-sec':1},
+   h('h1',null,'The weight',h('span',{className:'b'},'we carry')),
+   h('p',{className:'lede'},'Nobody can see what’s in a student’s bag. This is a small project about four things that live in mine.'),
+   h('p',{className:'scroll'},'scroll slowly, it’s heavier than it looks ↓')),
+
+  P.map((x,i)=>h('section',{key:x.id,className:'sec s-'+x.side+' p'+i,'data-sec':1,'aria-labelledby':'h-'+x.id},
+   h('div',{className:'txt'},
+    h('h2',{id:'h-'+x.id},x.title),
+    h('blockquote',null,x.quote),
+    h('p',{className:'what'},x.what),
+    h('ul',{className:'ways','aria-label':'Ways to carry it differently'},x.ways.map((w,j)=>h('li',{key:j},w)))))),
+
+  h('section',{className:'sec s-l fin-sec','data-sec':1,'aria-labelledby':'h-fin'},
+   h('div',{className:'txt'},
+    h('h2',{id:'h-fin'},'Put one thing down.'),
+    h('fieldset',null,h('legend',null,'Heaviest one this week?'),
+     P.map(x=>h('label',{key:x.id,className:pick===x.id?'on':''},
+      h('input',{type:'radio',name:'pk',checked:pick===x.id,onChange:()=>{setPick(x.id);setAct(-1)}}),x.title))),
+    q&&h('fieldset',null,h('legend',null,'One small thing I’ll try'),
+     q.ways.map((w,j)=>h('label',{key:q.id+j,className:act===j?'on':''},
+      h('input',{type:'radio',name:'ac',checked:act===j,onChange:()=>setAct(j)}),w))),
+    q&&act>=0&&h('p',{className:'pledge','aria-live':'polite'},'This week, for '+q.title.toLowerCase()+': '+q.ways[act].replace(/\.$/,'').toLowerCase()+'.'),
+    h('div',{className:'close'},
+     h('p',null,'You’re more than your grades. More than an offer letter, a feed, or a fee receipt.'),
+     h('p',null,'Asking for help isn’t weakness. It’s how a heavy thing gets carried by more than one person.'),
+     h('small',null,'If it’s more than stress, talk to a counsellor or call Tele-MANAS, 14416 (free, India).'))))
+ );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+</script>
+</body>
+</html>
