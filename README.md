@@ -3,6 +3,8 @@
 
 **The Weight We Carry** is an interactive web experience exploring student life pressures, including academic stress, family expectations, social comparison, and career anxiety.
 
+**Live Demo:** (https://luxury-horse-819a54.netlify.app)
+
 ### ✨ Features
 - Interactive pressure selection
 - Visual backpack representing emotional weight
