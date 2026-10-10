@@ -1,4 +1,3 @@
-# Pixel-Persona
 # The Weight We Carry
 
 **The Weight We Carry** is an interactive web experience exploring student life pressures, including academic stress, family expectations, social comparison, and career anxiety.
@@ -15,13 +14,10 @@
 
 ### 🛠️ Tech Stack
 - HTML5
-
-### 👥 Team
-**Team Name:** gannumehrotra14
-
+  
 **Team Members:**
-- Aliza Hasnain — Babu Banarasi Das University student
-- Rohan Mehrotra — Babu Banarasi Das University student
+- Aliza Hasnain
+- Rohan Mehrotra (https://github.com/rogue1754)
 
 ### 🎯 Goal
 Encourage students to acknowledge their struggles and take one small, meaningful step forward.
